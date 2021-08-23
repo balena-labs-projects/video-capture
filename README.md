@@ -44,3 +44,15 @@ services:
 ```
 
 The capture block will automatically set `BALENA_HOST_CONFIG_start_x` to `1` and `BALENA_HOST_CONFIG_gpu_mem` to `192`. This effectively utilizes 192 MB of system memory for the GPU, regardless of your dashboard setting for "Define device GPU memory in megabytes." Note that when the block changes these settings, your device will reboot. (Usually, this only happens the first time the block runs.)
+
+## Compatibility
+This block has been tested on the following devices:
+- Raspberry Pi Zero W
+- Raspberry Pi 3B+
+- Raspberry Pi 4 (2GB)
+- Nvidia Jetson Nano 
+
+The following cameras have been tested:
+- Microsoft LifeCam Cinema
+- Microsoft LifeCam VX-3000
+- Raspberry Pi Camera Module v2
