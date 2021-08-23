@@ -36,7 +36,7 @@ version: '2'
 
 services:
   video-capture:
-    build: ./rtsp-server
+    build: .
     network_mode: host
     privileged: true
     labels:
