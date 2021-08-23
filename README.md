@@ -27,7 +27,7 @@ For an older webcam that only supports jpeg:
 
 In fact, you can change almost any part of the pipeline to suit your needs, but make sure it uses the proper device name and ends with an rtp output such as `rtph264pay`. Also be sure that your camera (or source) supports the desired size and framerate. When the capture block starts, it displays this information. You can also ssh into the block and run `v4l2-ctl --list-formats-ext` to see supported features.
 
-A RTSP stream will be available on `rtsp://localhost:8554/server` to other containers in the application. (Replace localhost with the device's IP address to view the stream outside the device)
+**A RTSP stream will be available on `rtsp://localhost:8554/server` to other containers in the application. (Replace localhost with the device's IP address to view the stream outside the device)**
 
 ## Usage
 To use this image, create a container in your `docker-compose.yml` file as shown below:
