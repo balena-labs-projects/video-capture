@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  video-capture:
+    build: .
+    # once the image is live use:
+    #image: balenablocks/video-capture
+    network_mode: host
+    privileged: true
+    labels:
+          io.balena.features.balena-api: '1'
