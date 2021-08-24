@@ -1,6 +1,7 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
+echo "STARTED"
 
 test -n "$srcdir" || srcdir=`dirname "$0"`
 test -n "$srcdir" || srcdir=.
