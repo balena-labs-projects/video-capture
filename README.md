@@ -47,9 +47,9 @@ The capture block will automatically set `BALENA_HOST_CONFIG_start_x` to `1` and
 
 ## Compatibility
 This block has been tested on the following devices:
-- Raspberry Pi Zero W
 - Raspberry Pi 3B+
 - Raspberry Pi 4 (2GB)
+- Raspberry Pi Zero W (limited frame rate)
 - Nvidia Jetson Nano 
 
 The following cameras have been tested:
