@@ -43,4 +43,4 @@ COPY . .
 
 RUN cd gst-rtsp-server && chmod +x autogen.sh && ./autogen.sh && make && make install
 
-CMD ["/bin/bash", "/usr/src/app/entry.sh"]
+CMD ["/bin/bash", "/usr/src/app/entry-jetson.sh"]
