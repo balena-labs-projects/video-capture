@@ -22,6 +22,6 @@ RUN git clone https://github.com/thaytan/gst-rpicamsrc.git && \
     make && \
     make install
 
-RUN cd gst-rtsp-server && ./autogen.sh && make && make install
+RUN cd gst-rtsp-server && chmod +x autogen.sh && ./autogen.sh && make && make install
 
 CMD ["/bin/bash", "/usr/src/app/entry.sh"]
