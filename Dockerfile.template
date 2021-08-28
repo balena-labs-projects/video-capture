@@ -1,27 +1,33 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%
+FROM balenalib/%%BALENA_MACHINE_NAME%% AS buildstep
 
-RUN apt-get update && \
-    apt-get install -y vim git && \
-    apt-get install -y build-essential wget gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer1.0-dev libgstreamer1.0-0-dbg libgstreamer1.0-0 && \
-    apt-get install -y libgstreamer-plugins-base1.0-dev libgstrtspserver-1.0-0 && \
-    apt-get install -y autoconf automake autopoint libtool && \
-    apt-get install -y gtk-doc-tools v4l-utils jq
-
-RUN apt update && \
-    apt install gstreamer1.0-omx
-    
-RUN apt-get install -y libraspberrypi-bin libraspberrypi-dev
+RUN install_packages git build-essential wget gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer1.0-dev libgstreamer1.0-0-dbg libgstreamer1.0-0 libgstreamer-plugins-base1.0-dev libgstrtspserver-1.0-0 autoconf automake autopoint libtool gtk-doc-tools v4l-utils jq gstreamer1.0-omx libraspberrypi-bin libraspberrypi-dev
 
 WORKDIR /usr/src/app
-
-COPY . .
 
 RUN git clone https://github.com/thaytan/gst-rpicamsrc.git && \
     cd gst-rpicamsrc && \
     ./autogen.sh && \
     make && \
     make install
+    
+COPY ./gst-rtsp-server ./gst-rtsp-server
 
 RUN cd gst-rtsp-server && chmod +x autogen.sh && ./autogen.sh && make && make install
+
+FROM balenalib/%%BALENA_MACHINE_NAME%% AS final
+
+WORKDIR /usr/src/app
+
+RUN install_packages jq gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer1.0-dev libgstreamer1.0-0-dbg libgstreamer1.0-0 libgstreamer-plugins-base1.0-dev libgstrtspserver-1.0-0 v4l-utils gstreamer1.0-omx libraspberrypi-bin libraspberrypi-dev
+
+COPY --from=buildstep /usr/src/app/gst-rtsp-server /usr/src/app/gst-rtsp-server
+
+# Copy over gst-rpicamsrc elements and setup
+COPY --from=buildstep /usr/src/app/gst-rpicamsrc /usr/src/app/gst-rpicamsrc
+RUN cd gst-rpicamsrc/src && \
+    /bin/bash ../libtool   --mode=install /usr/bin/install -c   libgstrpicamsrc.la '/usr/lib/arm-linux-gnueabihf/gstreamer-1.0' && \
+    ldconfig -n /usr/lib/arm-linux-gnueabihf/gstreamer-1.0
+    
+COPY *.sh ./
 
 CMD ["/bin/bash", "/usr/src/app/entry.sh"]
