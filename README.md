@@ -58,7 +58,7 @@ The following cameras have been tested:
 - Raspberry Pi Camera Module v2
 
 ## Troubleshooting
-Certain (mostly older) webcams YUYV mode may not be supported by the v4l2 plugin being used by this block. If this is the case, you won't get any video and may see errors similar to the following in the log window:
+Certain (mostly older) webcam's YUYV mode may not be supported by the v4l2 plugin being used by this block. If this is the case, you won't get any video and may see errors similar to the following in the log window:
 ```
 <video-capture> 37   0x264bb0 WARN               rtspmedia rtsp-media.c:1834:default_handle_message: 0xf6a3e480: got error Internal data stream error. 
 
