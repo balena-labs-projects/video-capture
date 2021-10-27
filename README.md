@@ -58,10 +58,12 @@ The following cameras have been tested:
 - Raspberry Pi Camera Module v2
 
 ## Troubleshooting
-Certain (mostly older) webcams may not be supported by the v4l2 plugin being used by this block. If this is the case, you won't get any video and may see errors similar to the following in the log window:
+Certain (mostly older) webcams YUYV mode may not be supported by the v4l2 plugin being used by this block. If this is the case, you won't get any video and may see errors similar to the following in the log window:
 ```
-<video-capture> 37   0x264bb0 WARN               rtspmedia rtsp-media.c:1834:default_handle_message: 0xf6a3e480: got error Internal data stream error. (gstbasesrc.c(3055): gst_base_src_loop (): /GstPipeline:media-pipeline/GstBin:bin3/GstV4l2Src:v4l2src3:
+<video-capture> 37   0x264bb0 WARN               rtspmedia rtsp-media.c:1834:default_handle_message: 0xf6a3e480: got error Internal data stream error. 
+
+(gstbasesrc.c(3055): gst_base_src_loop (): /GstPipeline:media-pipeline/GstBin:bin3/GstV4l2Src:v4l2src3:
 <video-capture> streaming stopped, reason not-negotiated (-4))
 <video-capture> 37   0x281890 ERROR             rtspclient rtsp-client.c:678:find_media: client 0x161ae0: can't prepare media
 ```
-As a workaround, you can use a custom pipline (like the one listed above) to force the camera into jpeg mode, if supported. You could also try adding the following [configuration variable](https://www.balena.io/docs/learn/manage/variables/) to the dashboard: `GST_V4L2_USE_LIBV4L2` and set its value to `1`.
+As a workaround, you can use a custom pipline (like the one listed above) to force the camera into jpeg mode, if supported. You could also try adding the following [configuration variable](https://www.balena.io/docs/learn/manage/variables/) to the dashboard: `GST_V4L2_USE_LIBV4L2` and set its value to `1`. This will enable the depricated libv4l2 library which may have broader conversion ability.
