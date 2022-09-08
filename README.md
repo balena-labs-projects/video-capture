@@ -1,6 +1,8 @@
 # video-capture
 Provide an RTSP stream for a connected video source.
 
+NOTE: This block is still under active development and subject to updates and changes. Feel free to add an issue or open a PR!
+
 ## Description
 
 The Capture Block takes a video source (usually a camera) as an input and converts it to an RTSP stream. It utilizes [gst-rtsp-server](https://github.com/GStreamer/gst-rtsp-server) for core functionality.
